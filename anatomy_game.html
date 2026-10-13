@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="kk"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Тері шайқасы</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--a:#ff4d6d;--b:#2f80ff;--bg:#1b1340;--card:#2a1f5c;--tx:#fff}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 50% 0,#4a2fa0,var(--bg));color:var(--tx);font-family:system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
+#app{max-width:760px;margin:0 auto;padding:14px}
+.sb{display:flex;gap:10px;margin-bottom:12px}
+.team{flex:1;border-radius:16px;padding:10px;text-align:center;background:var(--card);border:3px solid transparent;transition:.3s}
+.team b{display:block;font-size:14px}.team span{font-size:34px;font-weight:800}
+.t0{color:#ff8fa3}.t1{color:#7fb2ff}
+.team.on.t0{border-color:var(--a);box-shadow:0 0 18px var(--a)}
+.team.on.t1{border-color:var(--b);box-shadow:0 0 18px var(--b)}
+.card{background:var(--card);border-radius:20px;padding:20px;text-align:center}
+h1{font-size:30px;margin:8px 0}h2{font-size:21px;margin:8px 0;line-height:1.35}
+.big{font-size:70px}
+.btn{background:linear-gradient(135deg,#ffb703,#fb5607);color:#fff;border:0;border-radius:14px;padding:14px 28px;font-size:19px;font-weight:700;cursor:pointer;margin-top:14px}
+.opt{display:block;width:100%;text-align:left;background:#3a2c7a;color:#fff;border:2px solid #5a48ad;border-radius:14px;padding:13px;margin:9px 0;font-size:17px;cursor:pointer}
+.opt:active{transform:scale(.98)}
+.opt.ok{background:#1f9d55;border-color:#4ade80}.opt.no{background:#b91c1c;border-color:#f87171}.opt.off{opacity:.35;pointer-events:none}
+.bar{height:12px;background:#3a2c7a;border-radius:8px;overflow:hidden;margin:8px 0}
+.bar i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#4ade80,#facc15,#ef4444);transition:width 1s linear}
+.tag{display:inline-block;background:#ffb703;color:#222;border-radius:20px;padding:3px 12px;font-size:13px;font-weight:700}
+.msg{margin-top:10px;font-size:16px;line-height:1.4;background:#1b1340;border-radius:12px;padding:10px}
+.pop{animation:p .5s}@keyframes p{0%{transform:scale(.5);opacity:0}70%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+</style></head><body><div id="app"></div>
+<script>
+const R=[{e:"🧬",n:"Жасқа байланысты өзгерістер мен ерекшеліктер"},{e:"🔬",n:"Бала, жасөспірім және қария терісінің құрылымы"},{e:"🧴",n:"Тері күтімі және гигиена"}];
+const Q=[
+{r:0,q:"Тері неше негізгі қабаттан тұрады?",a:["3 (эпидермис, дерма, гиподерма)","2","5","7"],x:"Тері: эпидермис, дерма (тері өзі) және гиподерма (тері асты май қабаты)."},
+{r:0,q:"Жаңа туған нәресте терісінің ерекшелігі қандай?",a:["Жұқа, нәзік, қан тамырларына бай","Қалың және мүйізді қабаты қалың","Май қабаты өте қалың","Әжімді және құрғақ"],x:"Нәресте терісі жұқа, нәзік, қан тамырларға бай, сондықтан оңай зақымданады."},
+{r:0,q:"🌟 АЛТЫН СҰРАҚ (×2): Қартайғанда тері серпімділігі неден төмендейді?",a:["Коллаген және эластин талшықтарының азаюынан","Меланиннің көбеюінен","Тер бездерінің көбеюінен","Эпидермистің қалыңдауынан"],x:"Қартайғанда коллаген мен эластин азайып, тері жұқарып, әжім пайда болады.",g:1},
+{r:1,q:"Жасөспірімде безеудің пайда болуына не себеп?",a:["Май бездері қызметінің күшеюі (гормондар)","Тер бездерінің жойылуы","Терінің жұқаруы","Коллагеннің көбеюі"],x:"Жыныстық гормондар әсерінен май бездері белсенді жұмыс істеп, тері майлы болады."},
+{r:1,q:"Нәресте неге оңай қызып кетеді?",a:["Тер бездері мен терморегуляция жетілмеген","Терісі өте қалың","Тер бездері тым көп","Түгі өте көп"],x:"Нәрестеде тер бөлу және жылу реттеу жүйесі әлі жетілмеген."},
+{r:1,q:"🌟 АЛТЫН СҰРАҚ (×2): Қарттарда тері неге құрғақ және жұқа болады?",a:["Май және тер бездерінің қызметі әлсірейді","Май бездері көбейеді","Эпидермис қалыңдайды","Қан тамырлары көбейеді"],x:"Қарттарда май және тер бездері әлсіреп, тері құрғап, жұқарады.",g:1},
+{r:2,q:"Нәрестені шомылдыруға судың қолайлы температурасы қанша?",a:["36–37 °C","20 °C","45 °C","50 °C"],x:"Нәрестені 36–37 °C жылы суда жуады."},
+{r:2,q:"Жасөспірім терісін күтуге қандай құрал қолайлы?",a:["Терінің рН-ына сай жұмсақ жуғыш құрал","Спиртті қатты ерітінділер","Терісін қатты тырнау","Күн сәулесінде күйдіру"],x:"Майлы теріні жұмсақ жуғыш құралмен күн сайын тазалау керек, безеуді қыспау керек."},
+{r:2,q:"🌟 АЛТЫН СҰРАҚ (×2): Қарттарға терісін күтуде не ұсынылмайды?",a:["Ыстық суда ұзақ жуыну","Ылғалдандырғыш крем жағу","Күннен қорғану","Жұмсақ сабын қолдану"],x:"Ыстық су терінің табиғи майын шайып, құрғатады. Ылғалдандырғыш пен күннен қорғаныс қажет.",g:1}
+];
+const A=document.getElementById("app"),N=["🔴 Қызыл","🔵 Көк"];
+let S,i,sc,tm,tid,ac;
+function beep(f,d){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.frequency.value=f;g.gain.value=.15;o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+d)}catch(e){}}
+function sb(t){return `<div class="sb">${[0,1].map(k=>`<div class="team t${k} ${t===k?'on':''}"><b>${N[k]} команда</b><span id="s${k}">${sc[k]}</span></div>`).join("")}</div>`}
+function start(){sc=[0,0];i=0;A.innerHTML=`<div class="card pop"><div class="big">🧑‍⚕️🧬</div><h1>Тері шайқасы!</h1><p>Жабын жүйесі · 2 команда · 9 сұрақ · 3 раунд</p><div class="msg">Командалар кезекпен жауап береді. Қателессе — қарсылас <b>ұтып әкету</b> мүмкіндігін алады (+1 ұпай)!<br>Дұрыс жауап: +2 ұпай · 🌟 Алтын сұрақ: ×2</div><button class="btn" onclick="rnd()">Бастаймыз! 🚀</button></div>`}
+function rnd(){beep(520,.15);const r=Q[i].r;A.innerHTML=sb(-1)+`<div class="card pop"><div class="big">${R[r].e}</div><span class="tag">${r+1}-раунд</span><h2>${R[r].n}</h2><button class="btn" onclick="ask()">Сұраққа өту</button></div>`}
+function shuf(a){return a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(v=>v[1])}
+function ask(){const q=Q[i],t=i%2;S={t,steal:false,wrong:null,done:false};
+const opts=shuf(q.a.map((o,k)=>({o,k})));
+A.innerHTML=sb(t)+`<div class="card"><span class="tag">${i+1}/9 · Кезек: ${N[t]}</span><div class="bar"><i id="bar"></i></div><h2>${q.q}</h2><div id="ops">${opts.map(p=>`<button class="opt" data-k="${p.k}" onclick="pick(${p.k},this)">${p.o}</button>`).join("")}</div><div id="m"></div></div>`;
+timer(20)}
+function timer(s){clearInterval(tid);tm=s;const b=document.getElementById("bar"),tot=s;b.style.transition="none";b.style.width="100%";setTimeout(()=>{b.style.transition="width 1s linear"},30);
+tid=setInterval(()=>{tm--;b.style.width=(tm/tot*100)+"%";if(tm<=5&&tm>0)beep(300,.08);if(tm<=0){clearInterval(tid);fail(null)}},1000)}
+function pick(k,el){if(S.done)return;clearInterval(tid);const q=Q[i];if(k===0)win(el);else{el.classList.add("no");fail(k)}}
+function pts(){return 2*(Q[i].g||1)}
+function win(el){S.done=true;const p=S.steal?(Q[i].g?2:1):pts();sc[S.steal?1-S.t:S.t]+=p;const who=S.steal?1-S.t:S.t;el.classList.add("ok");beep(880,.3);setTimeout(()=>beep(1175,.3),150);fin(`🎉 ${N[who]} команда +${p} ұпай!`)}
+function fail(k){const q=Q[i];if(S.steal){S.done=true;beep(180,.4);return fin("😬 Ешкім таппады!")}
+S.steal=true;S.wrong=k;beep(180,.4);
+document.querySelectorAll(".opt").forEach(b=>{if(+b.dataset.k===k)b.classList.add("off")});
+const o=1-S.t;document.getElementById("m").innerHTML=`<div class="msg pop">${k===null?"⏰ Уақыт бітті!":"❌ Қате!"} ${N[o]} команда, ұтып әкет! (+${Q[i].g?2:1})</div>`;
+document.querySelectorAll(".team").forEach((e,n)=>e.classList.toggle("on",n===o));timer(10)}
+function fin(m){clearInterval(tid);document.querySelectorAll(".opt").forEach(b=>{if(+b.dataset.k===0)b.classList.add("ok");b.style.pointerEvents="none"});
+[0,1].forEach(k=>document.getElementById("s"+k).textContent=sc[k]);
+document.getElementById("m").innerHTML=`<div class="msg pop"><b>${m}</b><br>💡 ${Q[i].x}</div><button class="btn" onclick="nx()">${i<8?"Келесі ➜":"Нәтиже 🏆"}</button>`}
+function nx(){i++;if(i>=9)return end();Q[i].r!==Q[i-1].r?rnd():ask()}
+function end(){beep(660,.2);setTimeout(()=>beep(880,.2),200);setTimeout(()=>beep(1175,.4),400);
+const w=sc[0]===sc[1]?"🤝 Тең ойын!":(sc[0]>sc[1]?N[0]:N[1])+" команда жеңді! 🏆";
+A.innerHTML=sb(-1)+`<div class="card pop"><div class="big">🏆</div><h1>${w}</h1><p>Қызыл ${sc[0]} : ${sc[1]} Көк</p><button class="btn" onclick="start()">Қайта ойнау 🔁</button></div>`}
+start();
+</script></body></html>
